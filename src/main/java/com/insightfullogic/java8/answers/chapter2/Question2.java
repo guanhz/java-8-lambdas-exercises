@@ -7,6 +7,6 @@ import static java.lang.ThreadLocal.withInitial;
 
 public class Question2 {
 
-     public final static ThreadLocal<DateFormat> formatter = withInitial(() -> new SimpleDateFormat("dd-MMM-yyyy"));
+    public final static ThreadLocal<DateFormat> formatter = withInitial(() -> new SimpleDateFormat("dd-MMM-yyyy"));
 
 }
