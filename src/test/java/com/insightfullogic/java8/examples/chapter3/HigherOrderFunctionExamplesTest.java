@@ -54,6 +54,32 @@ public class HigherOrderFunctionExamplesTest {
     }
 
     @Test
+    public void imperativeStringsWithNumbers() {
+        // BEGIN strings_numbers_for
+        List<String> beginningWithNumbers = new ArrayList<>();
+        for (String value : asList("a", "1abc", "abc1")) {
+            if (isDigit(value.charAt(0))) {
+                beginningWithNumbers.add(value);
+            }
+        }
+
+        assertEquals(asList("1abc"), beginningWithNumbers);
+        // END strings_numbers_for
+    }
+
+    @Test
+    public void functionalStringsWithNumbers() {
+        // BEGIN strings_numbers_filter
+        List<String> beginningWithNumbers
+                = Stream.of("a", "1abc", "abc1")
+                .filter(value -> !isDigit(value.charAt(0)))
+                .collect(toList());
+
+        assertEquals(asList("1abc"), beginningWithNumbers);
+        // END strings_numbers_filter
+    }
+
+    @Test
     public void imperativeMaxLength() {
 // BEGIN imperativeMaxLength
         List<Track> tracks = asList(new Track("Bakai", 524),
@@ -150,32 +176,6 @@ public class HigherOrderFunctionExamplesTest {
         }
         assertEquals(6, acc);
         // END count_using_reduce_for
-    }
-
-    @Test
-    public void functionalStringsWithNumbers() {
-        // BEGIN strings_numbers_filter
-        List<String> beginningWithNumbers
-                = Stream.of("a", "1abc", "abc1")
-                .filter(value -> isDigit(value.charAt(0)))
-                .collect(toList());
-
-        assertEquals(asList("1abc"), beginningWithNumbers);
-        // END strings_numbers_filter
-    }
-
-    @Test
-    public void imperativeStringsWithNumbers() {
-        // BEGIN strings_numbers_for
-        List<String> beginningWithNumbers = new ArrayList<>();
-        for (String value : asList("a", "1abc", "abc1")) {
-            if (isDigit(value.charAt(0))) {
-                beginningWithNumbers.add(value);
-            }
-        }
-
-        assertEquals(asList("1abc"), beginningWithNumbers);
-        // END strings_numbers_for
     }
 
     @Test
