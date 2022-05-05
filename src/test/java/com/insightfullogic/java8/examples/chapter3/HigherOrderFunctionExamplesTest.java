@@ -1,12 +1,11 @@
 package com.insightfullogic.java8.examples.chapter3;
 
+import com.insightfullogic.java8.examples.chapter1.Album;
+import com.insightfullogic.java8.examples.chapter1.Artist;
 import com.insightfullogic.java8.examples.chapter1.Track;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.function.BinaryOperator;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -77,6 +76,26 @@ public class HigherOrderFunctionExamplesTest {
 
         assertEquals(asList("1abc"), beginningWithNumbers);
         // END strings_numbers_filter
+    }
+
+    @Test
+    public void flatMapCharacters() {
+        // BEGIN flatmap_characters
+        List<Integer> together = Stream.of(asList(1, 2), asList(3, 4))
+                .flatMap(numbers -> numbers.stream())
+                .collect(toList());
+
+        assertEquals(asList(1, 2, 3, 4), together);
+        // END flatmap_characters
+    }
+
+    @Test
+    public void flatMapTest01() {
+        List<Integer> list1 = asList(1, 2, 3);
+        List<Integer> list2 = asList(11, 22, 22);
+        List<List<Integer>> listList = asList(list1, list2);
+        List<Integer> listAll = listList.stream().flatMap(Collection::stream).collect(toList());
+        listAll.forEach(System.out::println);
     }
 
     @Test
@@ -176,17 +195,6 @@ public class HigherOrderFunctionExamplesTest {
         }
         assertEquals(6, acc);
         // END count_using_reduce_for
-    }
-
-    @Test
-    public void flatMapCharacters() {
-        // BEGIN flatmap_characters
-        List<Integer> together = Stream.of(asList(1, 2), asList(3, 4))
-                .flatMap(numbers -> numbers.stream())
-                .collect(toList());
-
-        assertEquals(asList(1, 2, 3, 4), together);
-        // END flatmap_characters
     }
 
 }
