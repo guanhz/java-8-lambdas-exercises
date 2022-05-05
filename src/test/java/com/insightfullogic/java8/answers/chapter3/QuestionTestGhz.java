@@ -1,4 +1,4 @@
-package com.insightfullogic.java8.examples.chapter3;
+package com.insightfullogic.java8.answers.chapter3;
 
 import com.insightfullogic.java8.examples.chapter1.Album;
 import com.insightfullogic.java8.examples.chapter1.Artist;
@@ -13,7 +13,7 @@ import java.util.stream.Stream;
 import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.toList;
 
-public class QuestionTest {
+public class QuestionTestGhz {
 
     @Test
     public void testGetNamesAndOrigins() {
@@ -109,7 +109,7 @@ public class QuestionTest {
     @Test
     public void mostLowercaseString() {
         List<String> strings = asList("dDKefDodfD", "sfDFGdDGthsdfD", "dfGwDGYesdF");
-        System.out.println(strings.stream().max(Comparator.comparingInt(QuestionTest::countLowercaseLetters)).get());
+        System.out.println(strings.stream().max(Comparator.comparingInt(QuestionTestGhz::countLowercaseLetters)).get());
     }
 
 }
