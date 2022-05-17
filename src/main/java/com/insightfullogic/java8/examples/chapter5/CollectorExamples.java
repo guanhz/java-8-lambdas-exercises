@@ -18,6 +18,9 @@ import static java.util.stream.Collectors.*;
 
 public class CollectorExamples {
 
+    /**
+     * 转换成其他集合
+     */
     public void toCollectionTreeset() {
         Stream<Integer> stream = Stream.of(1, 2, 3);
         // BEGIN TO_COLLECTION_TREESET
@@ -25,25 +28,55 @@ public class CollectorExamples {
         // END TO_COLLECTION_TREESET
     }
 
+    /**
+     * 转换成值，找出团队成员最多的乐队
+     * @param artists
+     * @return
+     */
     // BEGIN BIGGEST_GROUP
     public Optional<Artist> biggestGroup(Stream<Artist> artists) {
-        Function<Artist, Long> getCount = artist -> artist.getMembers().count();
-        return artists.collect(maxBy(comparing(getCount)));
+        return artists.collect(maxBy(comparing(artist -> artist.getMembers().count())));
     }
     // END BIGGEST_GROUP
 
+    /**
+     * 转换成值，计算一组专辑上的平均数
+     * @param albums
+     * @return
+     */
+    // BEGIN averagingTracks
+    public double averageNumberOfTracks(List<Album> albums) {
+        return albums.stream()
+                .collect(averagingInt(album -> album.getTrackList().size()));
+    }
+    // END averagingTracks
+
+    /**
+     * 分块，根据乐队和独唱歌手分成两部分
+     * @param artists
+     * @return
+     */
     // BEGIN BANDS_AND_SOLO
     public Map<Boolean, List<Artist>> bandsAndSolo(Stream<Artist> artists) {
         return artists.collect(partitioningBy(artist -> artist.isSolo()));
     }
     // END BANDS_AND_SOLO
-
+    /**
+     * 分块，根据乐队和独唱歌手分成两部分（方法引用）
+     * @param artists
+     * @return
+     */
     // BEGIN BANDS_AND_SOLO_REF
     public Map<Boolean, List<Artist>> bandsAndSoloRef(Stream<Artist> artists) {
         return artists.collect(partitioningBy(Artist::isSolo));
     }
     // END BANDS_AND_SOLO_REF
 
+    /**
+     * 分组，根据主唱分组
+     * @param albums
+     * @return
+     */
     // BEGIN ALBUMS_BY_ARTIST
     public Map<Artist, List<Album>> albumsByArtist(Stream<Album> albums) {
         return albums.collect(groupingBy(album -> album.getMainMusician()));
@@ -106,13 +139,6 @@ public class CollectorExamples {
 
         return countWords(words);
     }
-
-    // BEGIN averagingTracks
-    public double averageNumberOfTracks(List<Album> albums) {
-        return albums.stream()
-                .collect(averagingInt(album -> album.getTrackList().size()));
-    }
-    // END averagingTracks
 
 }
 
